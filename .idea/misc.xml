@@ -5,6 +5,9 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/microservice-produits/pom.xml" />
+        <option value="$PROJECT_DIR$/microservice-produits/layer-model/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-repository-produits/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-service-produits/pom.xml" />
       </list>
     </option>
   </component>
