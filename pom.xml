@@ -33,6 +33,10 @@
     <module>layer-model-produits</module>
     <module>layer-repository-produits</module>
     <module>layer-service-produits</module>
+
+    <module>layer-model-commandes</module>
+    <module>layer-repository-commandes</module>
+    <module>layer-service-commandes</module>
   </modules>
 
   <dependencyManagement>
@@ -69,6 +73,23 @@
         <artifactId>layer-service-produits</artifactId>
         <version>${app.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>ma.roudane</groupId>
+        <artifactId>layer-model-commandes</artifactId>
+        <version>${app.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ma.roudane</groupId>
+        <artifactId>layer-repository-commandes</artifactId>
+        <version>${app.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ma.roudane</groupId>
+        <artifactId>layer-service-commandes</artifactId>
+        <version>${app.version}</version>
+      </dependency>
+
 
 
       <dependency>

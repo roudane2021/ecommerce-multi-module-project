@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -8,6 +9,9 @@
         <option value="$PROJECT_DIR$/microservice-produits/layer-model/pom.xml" />
         <option value="$PROJECT_DIR$/layer-repository-produits/pom.xml" />
         <option value="$PROJECT_DIR$/layer-service-produits/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-model-commandes/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-repository-commandes/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-service-commandes/pom.xml" />
       </list>
     </option>
   </component>
