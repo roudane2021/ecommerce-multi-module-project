@@ -1,6 +1,0 @@
-ma\roudane\paiement\dto\PaiementDto.class
-ma\roudane\paiement\PaiementController.class
-ma\roudane\paiement\mapper\PaiementDtoMapper.class
-ma\roudane\paiement\mapper\PaiementDtoMapperImpl.class
-ma\roudane\MicroservicePaiementsApplication.class
-ma\roudane\paiement\dto\PaiementDto$PaiementDtoBuilder.class
