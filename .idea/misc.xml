@@ -12,7 +12,18 @@
         <option value="$PROJECT_DIR$/layer-model-commandes/pom.xml" />
         <option value="$PROJECT_DIR$/layer-repository-commandes/pom.xml" />
         <option value="$PROJECT_DIR$/layer-service-commandes/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-model-produits/pom.xml" />
+        <option value="$PROJECT_DIR$/microservice-commandes/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-model-paiements/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-repository-paiements/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-servicel-paiements/pom.xml" />
+        <option value="$PROJECT_DIR$/layer-service-paiements/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/layer-servicel-paiements/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />

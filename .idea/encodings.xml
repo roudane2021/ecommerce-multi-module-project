@@ -2,11 +2,15 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/layer-model-commandes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/layer-model-paiements/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/layer-model-produits/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/layer-repository-commandes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/layer-repository-paiements/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/layer-repository-produits/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/layer-service-commandes/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/layer-service-paiements/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/layer-service-produits/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/layer-servicel-paiements/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservice-commandes/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservice-commandes/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/microservice-paiements/src/main/java" charset="UTF-8" />
