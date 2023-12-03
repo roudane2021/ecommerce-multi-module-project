@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: microservice-commandes
+  cloud:
+    config:
+      uri: http://localhost:8801
+  liquibase:
+    enabled: false
+
+#actua
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

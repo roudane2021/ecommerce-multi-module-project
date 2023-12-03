@@ -1,0 +1,10 @@
+server:
+  port: 8782
+# Configurations H2
+spring:
+  application.name: microservice-produits
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
