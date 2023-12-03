@@ -1,7 +1,7 @@
-package ma.roudane.commandes.mapper;
+package ma.roudane.produits.web.produit.mapper;
 
 
-import ma.roudane.commandes.web.produit.dto.ProduitDto;
+import ma.roudane.produits.web.produit.dto.ProduitDto;
 import ma.roudane.service.produit.models.ProduitApplication;
 import org.mapstruct.Mapper;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IProduitDtoMapper {
 
-    CommandeA toApp(ProduitDto produitDto);
+    ProduitApplication toApp(ProduitDto produitDtoproduitDto);
     ProduitDto toDto(ProduitApplication produitApplication);
 
     List<ProduitApplication> listToApp(List<ProduitDto> produitDtos);
