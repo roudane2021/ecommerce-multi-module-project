@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: microservice-paiements
+  cloud:
+    config:
+      uri: http://localhost:8801
+
+#actua
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

@@ -2,11 +2,10 @@ package ma.roudane.entities;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "produit")
 @Data
 @ToString
 @AllArgsConstructor
@@ -14,7 +13,8 @@ import javax.persistence.Id;
 @Builder
 public class ProduitEntity {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "produit_seq", sequenceName = "produit_seq_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produit_seq")
     private int id;
 
     private String titre;
