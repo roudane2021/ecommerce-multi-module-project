@@ -1,19 +1,17 @@
-package ma.roudane.commandes;
+package ma.roudane.produits;
 
-import ma.roudane.commandes.dto.CommandeDto;
-import ma.roudane.commandes.mapper.ICommandeDtoMapper;
+import ma.roudane.produits.dto.CommandeDto;
+import ma.roudane.produits.mapper.ICommandeDtoMapper;
 import ma.roudane.service.commande.ICommandeService;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/commandes")
 public class CommandeController {
-    @RestController
-    @RequestMapping("/v1/commandes")
-    public class ProduitController {
-
         private final ICommandeService commandeService;
         private final ICommandeDtoMapper mapper;
 
-        ProduitController(final ICommandeService commandeService, final ICommandeDtoMapper mapper){
+    public CommandeController(final ICommandeService commandeService, final ICommandeDtoMapper mapper){
             this.commandeService = commandeService;
             this.mapper = mapper;
         }
@@ -25,8 +23,11 @@ public class CommandeController {
 
         @GetMapping
         public CommandeDto list(){
-            return mapper.toDto(commandeService.getCommande(1).get());
+
+        //return mapper.toDto(commandeService.getCommande(1).get());
+
+            return new CommandeDto();
         }
-    }
+
 
 }

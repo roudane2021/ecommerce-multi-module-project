@@ -14,10 +14,7 @@ import java.util.List;
 @RequestMapping("/pro")
 public class AppController {
 
-    private final IProduitService produitService;
-    public AppController(final IProduitService produitService){
-        this.produitService = produitService;
-    }
+
 
 
     @GetMapping

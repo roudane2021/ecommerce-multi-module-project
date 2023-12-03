@@ -9,18 +9,18 @@
 *.class
 
 ### folders target
-layer-model-produits/target
-layer-model-commandes/target
-layer-model-paiements/target
+layer-model-produits/target/*
+layer-model-commandes/target/*
+layer-model-paiements/target/*
 
-layer-repository-produits/target
-layer-repository-commandes/target
-layer-repository-paiements/target
+layer-repository-produits/target/*
+layer-repository-commandes/target/*
+layer-repository-paiements/target/*
 
-layer-service-produits/target
-layer-service-commandes/target
-layer-service-paiements/target
+layer-service-produits/target/*
+layer-service-commandes/target/*
+layer-service-paiements/target/*
 
-microservice-produits/target
-microservice-commandes/target
-microservice-paiements/target
+microservice-produits/target/*
+microservice-commandes/target/*
+microservice-paiements/target/*

@@ -33,8 +33,8 @@ public class AppControllTest {
     @InjectMocks
     private AppController appController;
 
-    @Mock
-    private  IProduitService produitService;
+/*    @Mock
+    private  IProduitService produitService;*/
 
     @BeforeEach
     public void step() {
