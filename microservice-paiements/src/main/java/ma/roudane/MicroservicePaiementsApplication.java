@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 public class MicroservicePaiementsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MicroservicePaiementsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MicroservicePaiementsApplication.class, args);
+    }
 
 }

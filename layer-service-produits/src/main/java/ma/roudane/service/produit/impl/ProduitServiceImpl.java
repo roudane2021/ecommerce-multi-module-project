@@ -63,13 +63,13 @@ public class ProduitServiceImpl  implements IProduitService {
 
     private Specification<ProduitEntity> constructCriteria(final List<CriteriaApplication> criteriaApplications) {
         List<CriteriaApplication> criteriaApplicationsFilter = this.filterCriterias(criteriaApplications);
-      return (root, query, criterBuilder) -> {
-          Predicate predicate = criterBuilder.conjunction();
-              for (CriteriaApplication criteriaApplication : criteriaApplicationsFilter ) {
-                  Predicate criteriaPredicate = createPredicate(criteriaApplication, root, criterBuilder);
-                  predicate = criterBuilder.and(predicate, criteriaPredicate);
-              }
-          return  predicate;
+        return (root, query, criterBuilder) -> {
+            Predicate predicate = criterBuilder.conjunction();
+            for (CriteriaApplication criteriaApplication : criteriaApplicationsFilter ) {
+                Predicate criteriaPredicate = createPredicate(criteriaApplication, root, criterBuilder);
+                predicate = criterBuilder.and(predicate, criteriaPredicate);
+            }
+            return  predicate;
         };
 
     }
@@ -80,7 +80,7 @@ public class ProduitServiceImpl  implements IProduitService {
         Object value = transferType(root, criteriaApplication);
         switch (criteriaApplication.getOperator()) {
             case EQUALS:
-            return  criteriaBuilder.equal(fieldExpression, value);
+                return  criteriaBuilder.equal(fieldExpression, value);
             case NOT_EQUALS:
                 return  criteriaBuilder.notEqual(fieldExpression, value);
             case LESS_THAN:
@@ -132,7 +132,7 @@ public class ProduitServiceImpl  implements IProduitService {
 
     private List<CriteriaApplication> filterCriterias(List<CriteriaApplication> criters) {
         if (CollectionUtils.isEmpty(criters)) {
-           return new ArrayList<>();
+            return new ArrayList<>();
         }
         return criters.stream().filter(
                 criter -> Objects.nonNull(criter) && StringUtils.isNotBlank(criter.getName()) && Objects.nonNull(criter.getValue())
