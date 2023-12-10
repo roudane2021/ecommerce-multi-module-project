@@ -33,7 +33,7 @@ public class ProduitController implements IProduitController {
         this.mapperCriteria = mapperCriteria;
     }
 
-    @PostMapping(value = "saveProduit")
+    @PostMapping(value = "/saveProduit")
     @Override
     public ResponseEntity<ProduitDto> save(@RequestBody ProduitDto produit){
         ProduitDto produitDto = mapperProduit.toDto(produitService.save(mapperProduit.toApp(produit)));
