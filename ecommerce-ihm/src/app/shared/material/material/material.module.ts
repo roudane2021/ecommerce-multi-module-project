@@ -9,6 +9,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -23,7 +25,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ScrollingModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

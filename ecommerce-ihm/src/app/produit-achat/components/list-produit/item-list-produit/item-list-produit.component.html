@@ -1,0 +1,19 @@
+<mat-card class="vertical-margin mat-elevation-z7">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{produit.titre}}</mat-card-title>
+        <mat-card-subtitle>{{produit.prix}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+         {{produit.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="view" (click)="onAction(actionDetails)" >Détail du Produit</button>
+        <button mat-flat-button color="panier" (click)="onAction(actionPanier)">Ajouter au panier</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card>

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 
@@ -13,14 +14,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   imports: [
     CommonModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    InfiniteScrollModule
   ],
   exports: [
     MaterialModule,
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    InfiniteScrollModule
   ]
 })
 export class SharedModule { }

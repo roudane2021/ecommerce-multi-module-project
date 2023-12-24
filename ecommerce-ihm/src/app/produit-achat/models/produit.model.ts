@@ -34,5 +34,34 @@ export interface Page {
     sorted?: boolean
     unsorted?: boolean
   }
+
+  export class Criteria {
+    name!: string;
+    value?: any;
+    listValue?: Array<any>;
+    operator!: Operator;
+}
+
+enum Operator {
+  EQUALS,
+  NOT_EQUALS,
+  LESS_THAN,
+  LESS_OR_EQUAL,
+  GREATER_THAN,
+  GREATER_OR_EQUAL,
+  IN,
+  NOT_IN,
+  LIKE
+}
+
+export enum ActionP {
+  DETAILS,
+  PANIER
+}
+
+export  interface ResponseEvent{
+  event:ActionP,
+  idP: number
+}
   
   
