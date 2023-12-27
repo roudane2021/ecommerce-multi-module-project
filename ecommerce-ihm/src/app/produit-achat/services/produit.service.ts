@@ -26,7 +26,7 @@ export class ProduitService {
  * @param size La taille de la page à charger (par défaut, utilise la taille par défaut de l'environnement).
  * @param criteria Les critères de recherche à appliquer (par défaut, utilise les critères par défaut de l'environnement).
  */
-getPageProduit(size: number = environment.size_default, criteria: Criteria[] = environment.criteria_default): void {
+getPageProduit(criteria: Criteria[] = environment.criteria_default, size: number = environment.size_default): void {
   // Vérifie si le chargement de la page suivante est autorisé en fonction de certains critères.
   if (!this.autoriseLoadingNextPage(size)) {
     return;
@@ -64,6 +64,22 @@ getPageProduit(size: number = environment.size_default, criteria: Criteria[] = e
       return of({});
     })
   ).subscribe();
+}
+
+getProduitByID(produitID: Number): Observable<Produit> {
+  this.setLoadingStatus(true);
+  return this.httpClient.get<Produit>(`${wsService.produit.produitByID}${produitID}`).pipe(
+    delay(2000),
+    tap(produit => {
+     this.setLoadingStatus(false);
+    }),
+    catchError( error => {
+       // Affiche un message d'erreur dans la console.
+       console.error('Une erreur réseau s\'est produite :', error);
+       this.setLoadingStatus(false);
+      return of({});
+    })
+  );
 }
 
 /**

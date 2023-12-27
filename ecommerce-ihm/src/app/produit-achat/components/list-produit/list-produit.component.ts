@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ProduitService } from '../../services/produit.service';
 import { Observable, Subject, filter, first, takeUntil } from 'rxjs';
-import { ActionP, Page, ResponseEvent } from '../../models/produit.model';
+import { ActionP, Criteria, Page, ResponseEvent } from '../../models/produit.model';
 import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./list-produit.component.scss'],
 })
 export class ListProduitComponent implements OnInit , OnDestroy{
+
   // Observable
   loading$!: Observable<boolean>;
   page$!: Observable<Page>;
@@ -50,6 +51,9 @@ export class ListProduitComponent implements OnInit , OnDestroy{
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+  onFilter(filters: Criteria[]) {
+    this.produitService.getPageProduit(filters,0);
+    }
  
 
 }

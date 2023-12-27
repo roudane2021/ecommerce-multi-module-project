@@ -1,1 +1,15 @@
-<p>produit-item works!</p>
+<mat-card>
+    <ng-container *ngIf="produit$ | async as produit">
+      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="produit.titre">
+      <div class="employee-info">
+        <h1>{{ produit.titre }} </h1>
+        <h3>Prix : {{ produit.prix }}</h3>
+      </div>
+    </ng-container>
+    <mat-card-actions>
+      <mat-spinner *ngIf="loading$ | async; else buttons"></mat-spinner>
+      <ng-template #buttons>
+        <button mat-flat-button color="primary" (click)="onGoBack()">RETOUR</button>
+      </ng-template>
+    </mat-card-actions>
+  </mat-card>

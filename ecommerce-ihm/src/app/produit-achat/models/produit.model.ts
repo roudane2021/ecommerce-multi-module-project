@@ -42,7 +42,7 @@ export interface Page {
     operator!: Operator;
 }
 
-enum Operator {
+export enum Operator {
   EQUALS,
   NOT_EQUALS,
   LESS_THAN,
@@ -53,6 +53,12 @@ enum Operator {
   NOT_IN,
   LIKE
 }
+
+export const OperatorOptions = [
+  { key: Operator.EQUALS, value: 'Egalé' },
+  { key: Operator.NOT_EQUALS, value: 'Pas égalé' },
+  { key: Operator.LIKE, value: 'Like' }
+];
 
 export enum ActionP {
   DETAILS,

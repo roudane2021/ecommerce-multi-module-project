@@ -1,1 +1,38 @@
-<p>filter-produit works!</p>
+<div fxLayout="row wrap" [formGroup]="filterForm" fxLayoutGap="20px">
+  <!-- Ceci est un filter de Prix-->  
+<div fxLayout="column wrap" formGroupName="prix" fxFlex="40%">
+    <mat-form-field appearance="fill">
+        <mat-label>Prix</mat-label>
+        <input type="text" matInput formControlName="value">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Operation</mat-label>
+        <mat-select formControlName="operator">
+            <ng-container *ngFor="let operator of operators">
+                <mat-option  value="{{operator.key}}">{{operator.value}}</mat-option>
+            </ng-container>
+        </mat-select>
+      </mat-form-field>
+</div>
+  <!-- Ceci est un filter de Titre-->  
+  <div fxLayout="column wrap" formGroupName="titre" fxFlex="40%">
+    <mat-form-field appearance="fill">
+        <mat-label>Titre</mat-label>
+        <input type="text" matInput formControlName="value">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Operation</mat-label>
+        <mat-select formControlName="operator">
+            <ng-container *ngFor="let operator of operators">
+                <mat-option  value="{{operator.key}}">{{operator.value}}</mat-option>
+            </ng-container>
+        </mat-select>
+      </mat-form-field>
+</div>
+  <!-- Ceci est un Button-->  
+  <div fxLayout="row wrap" fxLayoutAlign="start center" formGroupName="titre" >
+    <button mat-flat-button color="primary" (click)="onFilterForm()">Rechercher</button>
+</div>
+</div>
