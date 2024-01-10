@@ -69,5 +69,9 @@ export  interface ResponseEvent{
   event:ActionP,
   idP: number
 }
+
+export class User {
+id?:number
+}
   
   

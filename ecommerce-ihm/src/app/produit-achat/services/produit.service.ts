@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, delay, of, pipe, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, delay, filter, of, pipe, tap } from 'rxjs';
 import { wsService } from 'src/app/shared/url-ws/url.ws';
 import { Criteria, Page, Produit } from '../models/produit.model';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,8 @@ export class ProduitService {
 
   private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _page$: BehaviorSubject<Page> = new BehaviorSubject<Page>({} as Page);
+  private _filter$: BehaviorSubject<Criteria[]> = new BehaviorSubject<Criteria[]>([]);
+  private _applyFilter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,21 +22,35 @@ export class ProduitService {
     return this._page$.asObservable();
   }
 
+  set filter$(value : Criteria[]) {
+    const filters : Criteria[] = value?.filter(filter => filter.name && filter.operator != undefined && filter.value);
+    this._filter$.next(filters);
+  }
+
+  set applyFilter$(value : boolean) {
+    this._applyFilter$.next(value);
+  }
+
 /**
  * Charge la page de produits en fonction de la taille spécifiée et des critères de recherche.
  *
- * @param size La taille de la page à charger (par défaut, utilise la taille par défaut de l'environnement).
- * @param criteria Les critères de recherche à appliquer (par défaut, utilise les critères par défaut de l'environnement).
  */
-getPageProduit(criteria: Criteria[] = environment.criteria_default, size: number = environment.size_default): void {
+getPageProduit(): void {
+  // Obtient size page
+  const size = environment.size_default;
   // Vérifie si le chargement de la page suivante est autorisé en fonction de certains critères.
   if (!this.autoriseLoadingNextPage(size)) {
     return;
   }
+   // Obtient le applyFilter actuel de _applyFilter$.
+  const applyFilter : boolean = this._applyFilter$.getValue();
+  // Obtient le filter actuel de _filter$.
+  const criteria: Criteria[] = applyFilter ? this._filter$.getValue() : [];
 
 
   // Obtient le numéro de la page suivante.
-  const nbPage: number = this.getNbPage();
+  const nbPage: number = this.getNbPage(applyFilter);
+
 
   // Indique que le chargement est en cours.
   this.setLoadingStatus(true);
@@ -42,7 +58,7 @@ getPageProduit(criteria: Criteria[] = environment.criteria_default, size: number
   // Effectue une requête POST HTTP pour obtenir la page de produits.
   this.httpClient.post<Page>(`${wsService.produit.searchProduit}?page=${nbPage}&size=${size}`, criteria).pipe(
     // Ajoute un délai simulé de 2000 millisecondes pour simuler le chargement.
-    delay(2000),
+    delay(environment.delay_default),
     // Traite la réponse de la requête.
     tap((page: Page) => {
     
@@ -51,11 +67,18 @@ getPageProduit(criteria: Criteria[] = environment.criteria_default, size: number
 
       // Met à jour les informations de la page dans l'observable _page$.
       this.setProduis(page, nbPage);
+
+       // Indique que le apply filter a été terminé.
+       this.applyFilter$= false;
+
     }),
     // Gère les erreurs éventuelles de la requête.
     catchError(error => {
       // Indique que le chargement a été interrompu en raison d'une erreur.
       this.setLoadingStatus(false);
+
+      // Indique que le apply filter a été terminé.
+      this.applyFilter$= false;
 
       // Affiche un message d'erreur dans la console.
       console.error('Une erreur réseau s\'est produite :', error);
@@ -92,12 +115,17 @@ private autoriseLoadingNextPage(size: number): boolean {
   // Obtient l'état actuel du chargement à partir de l'observable _loading$.
   const loading: boolean = this._loading$.getValue();
 
-  // Obtient l'état actuel de la dernière page à partir de l'observable _page$.
-  // Si last_page est indéfini, on utilise false comme valeur par défaut.
-  const last_page: boolean = this._page$.getValue().last || false;
+  
 
-  // Autorise le chargement de la page suivante si la taille est supérieure à 0, aucun chargement en cours et ce n'est pas la dernière page.
-  return size > 0 && !loading && !last_page;
+    // Obtient le applyFilter actuel de _applyFilter$.
+    const applyFilter : boolean = this._applyFilter$.getValue();
+
+    // Obtient l'état actuel de la dernière page à partir de l'observable _page$.
+    // Si last_page est indéfini, on utilise false comme valeur par défaut.
+    const last_page: boolean = this._page$.getValue().last || false;
+  
+    // Autorise le chargement de la page suivante si la taille est supérieure à 0, aucun chargement en cours et ce n'est pas la dernière page.
+    return applyFilter || (size > 0 && !loading && !last_page);
 }
 
 /**
@@ -132,7 +160,12 @@ private setProduis(page: Page, nbPage: number): void {
  *
  * @returns Le numéro de la page suivante.
  */
-private getNbPage(): number {
+private getNbPage(applyFilter: boolean): number {
+  // Si applyFilter est vrai, retourne 0.
+  if (applyFilter) {
+    return 0;
+  }
+
   // Obtient la page actuelle à partir de l'observable _page$.
   const page: Page = this._page$.getValue();
 

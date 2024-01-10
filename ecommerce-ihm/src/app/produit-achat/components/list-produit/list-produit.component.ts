@@ -1,16 +1,17 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ProduitService } from '../../services/produit.service';
-import { Observable, Subject, filter, first, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ActionP, Criteria, Page, ResponseEvent } from '../../models/produit.model';
-import { CdkVirtualScrollViewport, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-produit',
   templateUrl: './list-produit.component.html',
   styleUrls: ['./list-produit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListProduitComponent implements OnInit , OnDestroy{
+
 
   // Observable
   loading$!: Observable<boolean>;
@@ -46,14 +47,16 @@ export class ListProduitComponent implements OnInit , OnDestroy{
     console.log("Next Page ...");
     this.produitService.getPageProduit();
   }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-  onFilter(filters: Criteria[]) {
-    this.produitService.getPageProduit(filters,0);
+  onUpdateFilter(filters: Criteria[]) {
+     this.produitService.filter$ = filters;
     }
+  onApplyFilter(applyFilter: boolean): void {
+      this.produitService.applyFilter$ = applyFilter;
+      this.produitService.getPageProduit();
+      }
  
-
+  ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+      }
 }

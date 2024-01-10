@@ -5,6 +5,7 @@ export const environment = {
     prefixApiPaiement: 'http://prod:8761',
     size_default: 5,
     page_default: 0,
-    criteria_default: []
+    criteria_default: [],
+    delay_default: 0
 
 };

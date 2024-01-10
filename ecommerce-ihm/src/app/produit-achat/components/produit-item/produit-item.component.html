@@ -1,15 +1,26 @@
 <mat-card>
     <ng-container *ngIf="produit$ | async as produit">
-      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="produit.titre">
-      <div class="employee-info">
-        <h1>{{ produit.titre }} </h1>
-        <h3>Prix : {{ produit.prix }}</h3>
+      <div class="container" fxLayout="row wrap" fxLayoutGap="2%">
+        <div fxFlex="45%">
+          <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="produit.titre">
+        </div>
+        <div fxFlex="45%" fxLayout="column" fxLayoutAlign="start center">
+          <h1>{{ produit.titre }}</h1>
+          <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="8px">
+            <p>Prix : {{ produit.prix }}</p>
+            <p>{{ produit.description }}</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start end">
+            <button mat-flat-button color="primary" (click)="onGoBack()">RETOUR</button>
+          </div>
+        </div>
       </div>
+
     </ng-container>
     <mat-card-actions>
       <mat-spinner *ngIf="loading$ | async; else buttons"></mat-spinner>
       <ng-template #buttons>
-        <button mat-flat-button color="primary" (click)="onGoBack()">RETOUR</button>
+       <!-- <button mat-flat-button color="primary" (click)="onGoBack()">RETOUR</button>-->
       </ng-template>
     </mat-card-actions>
   </mat-card>

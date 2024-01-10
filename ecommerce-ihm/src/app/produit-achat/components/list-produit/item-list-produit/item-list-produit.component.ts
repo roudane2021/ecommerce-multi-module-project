@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActionP, Produit, ResponseEvent } from 'src/app/produit-achat/models/produit.model';
 
 @Component({

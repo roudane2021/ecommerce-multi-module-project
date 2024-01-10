@@ -3,7 +3,7 @@
 <div fxLayout="column wrap" formGroupName="prix" fxFlex="40%">
     <mat-form-field appearance="fill">
         <mat-label>Prix</mat-label>
-        <input type="text" matInput formControlName="value">
+        <input type="text" matInput formControlName="value" appPrixValid>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -32,7 +32,10 @@
       </mat-form-field>
 </div>
   <!-- Ceci est un Button-->  
-  <div fxLayout="row wrap" fxLayoutAlign="start center" formGroupName="titre" >
-    <button mat-flat-button color="primary" (click)="onFilterForm()">Rechercher</button>
+  <div fxLayout="row wrap" fxLayoutGap="3px" fxLayoutAlign="start center" formGroupName="titre" >
+    <button mat-flat-button color="primary" (click)="onSendApplyFilter()">Rechercher</button>
+    <button mat-flat-button color="primary" (click)="InitialiserApplyFilter()">Initialiser</button>
 </div>
 </div>
+
+

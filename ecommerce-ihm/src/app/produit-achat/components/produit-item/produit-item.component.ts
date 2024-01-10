@@ -30,8 +30,8 @@ export class ProduitItemComponent implements OnInit, OnDestroy{
     this.produit$ = this.route.params.pipe(
       takeUntil(this.unsubscribe$),
       map(params => +params['id']),
-      switchMap(id => this.produitService.getProduitByID(id)),
       take(1),
+      switchMap(id => this.produitService.getProduitByID(id)),
       tap(produit => {
         if (!produit.id) {
          this.onGoBack();

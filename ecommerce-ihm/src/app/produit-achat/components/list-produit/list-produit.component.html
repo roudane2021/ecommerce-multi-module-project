@@ -1,6 +1,6 @@
 <ng-container *ngIf="page$ | async as page">
   <div class="filter">
-    <app-filter-produit (event)="onFilter($event)"></app-filter-produit>
+    <app-filter-produit (sendFilter)="onUpdateFilter($event)" (sendApplyFilter)="onApplyFilter($event)"></app-filter-produit>
   </div>
   <div class="container" fxLayout="row wrap" fxLayoutAlign="space-between">
     <ng-container *ngFor="let produit of page.content">
@@ -14,3 +14,6 @@
 <ng-container *ngIf="loading$ | async">
   <mat-spinner class="spinner"></mat-spinner>
 </ng-container>
+
+
+

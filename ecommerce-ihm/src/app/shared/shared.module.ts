@@ -6,11 +6,15 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PrixValidDirective } from './directives/prix-valid.directive';
+
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PrixValidDirective
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -23,7 +27,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     RouterModule,
     HttpClientModule,
     FlexLayoutModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    PrixValidDirective
   ]
 })
 export class SharedModule { }
