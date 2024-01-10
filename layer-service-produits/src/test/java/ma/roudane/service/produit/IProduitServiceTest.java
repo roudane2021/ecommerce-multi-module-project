@@ -87,7 +87,8 @@ public class IProduitServiceTest {
                 .titre("Test Titre")
                 .prix(15.5)
                 .description("Description1")
-                .image("Test").build();
+                .image("Test")
+                .build();
     }
 
     private ProduitEntity getProduitEntity() {
