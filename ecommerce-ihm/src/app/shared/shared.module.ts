@@ -7,13 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PrixValidDirective } from './directives/prix-valid.directive';
+import { ShortenPipe } from './pipes/shorten.pipe';
+import { ShortenDirective } from './directives/shorten.directive';
 
 
 
 
 @NgModule({
   declarations: [
-    PrixValidDirective
+    PrixValidDirective,
+    ShortenPipe,
+    ShortenDirective
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { PrixValidDirective } from './directives/prix-valid.directive';
     HttpClientModule,
     FlexLayoutModule,
     InfiniteScrollModule,
-    PrixValidDirective
+    PrixValidDirective,
+    ShortenPipe,
+    ShortenDirective
   ]
 })
 export class SharedModule { }

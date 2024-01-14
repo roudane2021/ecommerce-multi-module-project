@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Produit } from '../../models/produit.model';
 import { Observable, Subject, catchError, map, of, switchMap, take, takeUntil, tap } from 'rxjs';
@@ -7,7 +7,8 @@ import { ProduitService } from '../../services/produit.service';
 @Component({
   selector: 'app-produit-item',
   templateUrl: './produit-item.component.html',
-  styleUrls: ['./produit-item.component.scss']
+  styleUrls: ['./produit-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProduitItemComponent implements OnInit, OnDestroy{
 

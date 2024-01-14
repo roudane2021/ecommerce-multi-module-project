@@ -23,7 +23,7 @@ export class ProduitService {
   }
 
   set filter$(value : Criteria[]) {
-    const filters : Criteria[] = value?.filter(filter => filter.name && filter.operator != undefined && filter.value);
+    const filters : Criteria[] = value?.filter(filter => filter.name && filter.operator != undefined && filter.value) || [];
     this._filter$.next(filters);
   }
 
@@ -142,10 +142,10 @@ private setProduis(page: Page, nbPage: number): void {
   // Si nbPage est supérieur à 0, fusionne le contenu actuel avec le nouveau contenu de la page.
   else if (nbPage > 0) {
     // Obtient le contenu actuel de _page$. Si le contenu est nul, utilise un tableau vide.
-    const currentContent: Produit[] = this._page$.getValue().content || [];
+    const currentContent: Produit[] = this._page$.getValue()?.content || [];
 
     // Fusionne le contenu actuel avec le nouveau contenu de la page.
-    const newContent: Produit[] = [...currentContent, ...(page.content || [])];
+    const newContent: Produit[] = [...currentContent, ...(page?.content || [])];
 
     // Crée une nouvelle page en copiant les informations de la page actuelle et en remplaçant le contenu par le nouveau contenu.
     const newPage: Page = { ...page, content: newContent };
