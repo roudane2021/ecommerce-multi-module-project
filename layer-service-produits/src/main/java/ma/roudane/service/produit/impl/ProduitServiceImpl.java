@@ -61,6 +61,12 @@ public class ProduitServiceImpl  implements IProduitService {
         return produitApplications;
     }
 
+    @Override
+    public Optional<ProduitApplication> getProduit(Integer produitID){
+        Optional<ProduitApplication> produit = produitRepository.findById(produitID).map(mapper::toApplication);
+        return produit;
+    }
+
     private Specification<ProduitEntity> constructCriteria(final List<CriteriaApplication> criteriaApplications) {
         List<CriteriaApplication> criteriaApplicationsFilter = this.filterCriterias(criteriaApplications);
         return (root, query, criterBuilder) -> {

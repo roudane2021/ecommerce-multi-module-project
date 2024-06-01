@@ -4,23 +4,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
+import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class CustomizedResponseEntityExceptionHandler  {
+public class CustomizedResponseEntityExceptionHandler {
 
     @ExceptionHandler(ExceptionWeb.class)
-    public Mono<ResponseEntity<ExceptionResponse>> handleResourceNotFoundException(ExceptionWeb ex, ServerWebExchange exchange) {
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .mensaje(ex.getMessage())
-                .detalles(exchange.toString())
-                .httpCodeMessage(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .build();
+    public final ResponseEntity<ExceptionResponse> handleNotFoundException(ExceptionWeb ex, WebRequest request) {
 
-        return Mono.just(new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST));
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder().timestamp(LocalDateTime.now())
+                .mensaje(ex.getMessage())
+                .detalles(request.getDescription(false))
+                .httpCodeMessage(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .build();
+        return new ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
 }

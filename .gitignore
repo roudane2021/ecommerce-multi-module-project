@@ -26,3 +26,46 @@ config-server/target/
 eureka-server/target/
 layer-service-produits/target/
 
+
+
+# Compiled output
+ecommerce-ihm/dist
+ecommerce-ihm/tmp
+ecommerce-ihm/out-tsc
+ecommerce-ihm/bazel-out
+
+# Node
+ecommerce-ihm/node_modules
+ecommerce-ihmnpm-debug.log
+ecommerce-ihmyarn-error.log
+
+# IDEs and editors
+ecommerce-ihm.idea/
+ecommerce-ihm.project
+.classpath
+ecommerce-ihm.c9/
+ecommerce-ihm*.launch
+.ecommerce-ihmsettings/
+ecommerce-ihm*.sublime-workspace
+
+# Visual Studio Code
+ecommerce-ihm/.vscode/*
+ecommerce-ihm/!.vscode/settings.json
+ecommerce-ihm/!.vscode/tasks.json
+ecommerce-ihm/!.vscode/launch.json
+ecommerce-ihm/!.vscode/extensions.json
+ecommerce-ihm/.history/*
+
+# Miscellaneous
+ecommerce-ihm/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+

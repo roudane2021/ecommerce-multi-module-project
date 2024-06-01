@@ -4,18 +4,25 @@ import ma.roudane.entities.ProduitEntity;
 import ma.roudane.repositories.IProduitRepository;
 import ma.roudane.service.produit.impl.ProduitServiceImpl;
 import ma.roudane.service.produit.mapper.IProduitAppMapper;
+import ma.roudane.service.produit.models.CriteriaApplication;
 import ma.roudane.service.produit.models.ProduitApplication;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -62,13 +69,26 @@ public class IProduitServiceTest {
         assertFalse(result.isEmpty());
     }
 
+    @Test
+    public void searchProduitsTest() {
+        List<CriteriaApplication> criteriaApplications = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0, 10);
+        when(mapper.toApplication(any(ProduitEntity.class))).thenReturn(getProduitApp());
+        when(produitRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(createPageOfProduitEntity());
+
+        Page<ProduitApplication> result = service.searchProduits(pageable, criteriaApplications);
+
+        verify(produitRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
+    }
+
     private ProduitApplication getProduitApp() {
 
         return ProduitApplication.builder().id(1)
                 .titre("Test Titre")
                 .prix(15.5)
                 .description("Description1")
-                .image("Test").build();
+                .image("Test")
+                .build();
     }
 
     private ProduitEntity getProduitEntity() {
@@ -112,6 +132,11 @@ public class IProduitServiceTest {
                 .image("Test2").build();
 
         return Arrays.asList(p1, p2);
+    }
+
+    private Page<ProduitEntity> createPageOfProduitEntity() {
+        List<ProduitEntity> content = getProduitEntityList();
+        return new PageImpl<>(content, PageRequest.of(0, 10), content.size());
     }
 
 

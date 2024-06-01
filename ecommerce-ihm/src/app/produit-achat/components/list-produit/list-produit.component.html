@@ -1,0 +1,19 @@
+<ng-container *ngIf="page$ | async as page">
+  <div class="filter">
+    <app-filter-produit (sendFilter)="onUpdateFilter($event)" (sendApplyFilter)="onApplyFilter($event)"></app-filter-produit>
+  </div>
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="space-between">
+    <ng-container *ngFor="let produit of page.content">
+      <app-item-list-produit fxFlex="45%" [produit]="produit" (event)="onApplyAction($event)"></app-item-list-produit>
+    </ng-container>
+  </div>
+</ng-container>
+
+<div class="search-results" infiniteScroll [infiniteScrollDistance]="0.5" [infiniteScrollThrottle]="50" (scrolled)="loadNextPage()"></div>
+
+<ng-container *ngIf="loading$ | async">
+  <mat-spinner class="spinner"></mat-spinner>
+</ng-container>
+
+
+

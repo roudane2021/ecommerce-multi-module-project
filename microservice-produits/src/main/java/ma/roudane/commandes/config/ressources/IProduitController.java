@@ -31,5 +31,7 @@ public interface IProduitController {
     ResponseEntity<Page<ProduitDto>> searchProduit(@ApiParam(value = "", required = true) List<CriteriaDto> criteriaDtos,
             @ApiParam(value = "numéro de page souhaiter", required = false) Optional<Integer> page,
             @ApiParam(value = "Nombre maximum d'éléments dans chaque page", required = false)  Optional<Integer> size);
+
+    ResponseEntity<ProduitDto> getProduit(@ApiParam(value = "Produit ID", required = true) Integer produitID);
 }
 
