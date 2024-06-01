@@ -1,0 +1,157 @@
+<mat-card class="container" [formGroup]="commandeForm" >
+    <mat-card-header>
+        <mat-card-title>Commande</mat-card-title>
+    </mat-card-header>
+
+
+    <mat-card-content >
+
+           <!-- User Info-->
+      <mat-card class="form-card" formGroupName="userInfo">
+            <mat-card-header>
+                <mat-card-subtitle>User Info :</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row wrap" fxLayoutGap="10%">
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Prénom</mat-label>
+                    <input type="text" matInput formControlName="firstName">
+                    <mat-error>Ce champ est requis</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Nom</mat-label>
+                    <input type="text" matInput formControlName="lastName">
+                    <mat-error>Ce champ est requis</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Pays</mat-label>
+                    <mat-select formControlName="pays" >
+                   <ng-container *ngFor="let pays of pays$ | async ">
+                    <mat-option value="{{ pays}}">{{ pays}}</mat-option>
+                   </ng-container>
+                    </mat-select>
+                    <mat-error>{{ getFormControlErrorText(paysCtrl) }}</mat-error> 
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Ville</mat-label>
+                    <mat-select formControlName="ville">
+                   <ng-container *ngFor="let ville of ville$ | async ">
+                    <mat-option value="one">{{ ville}}</mat-option>
+                   </ng-container>
+                    </mat-select>
+                    <mat-error>{{ getFormControlErrorText(villeCtrl) }}</mat-error> 
+                  </mat-form-field>
+
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+                   
+
+
+           <!-- contactPreferenceCtrl-->
+      <mat-card class="form-card" formGroupName="userInfo">
+        <mat-card-header>
+            <mat-card-subtitle>contact Preference :</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-radio-group [formControl]="contactPreferenceCtrl">
+                <mat-radio-button value="email">Mail</mat-radio-button>
+                <mat-radio-button value="phone">Téléphone</mat-radio-button>
+            </mat-radio-group>     
+        </mat-card-content>
+    </mat-card>
+
+     <!-- Phone -->
+     <mat-card class="form-card"  *ngIf="showPhone$ | async">
+        <mat-card-header>
+           <mat-card-subtitle>Phone :</mat-card-subtitle>
+           </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="row wrap" >
+            <mat-form-field appearance="fill" fxFlex="60%">
+                <mat-label>Numéro de téléphone</mat-label>
+                <input type="text" matInput [formControl]="phoneCtrl">
+              <mat-error>{{ getFormControlErrorText(phoneCtrl) }}</mat-error> 
+            </mat-form-field>   
+            </div>       
+           </mat-card-content>
+       </mat-card>
+
+               <!-- Email-->
+               <mat-card class="form-card" [formGroup]="emailForm" *ngIf="showEmail$ | async">
+                <mat-card-header>
+                    <mat-card-subtitle>Email :</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div fxLayout="row wrap" fxLayoutGap="20%">
+                        <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Email</mat-label>
+                        <input type="text" matInput formControlName="email">
+                        <mat-error>{{ getFormControlErrorText(emailCtrl) }}</mat-error> 
+                        <small class="error-text" *ngIf="showEmailError$ | async">Les deux adresses ne correspondent pas</small>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Confirm Email</mat-label>
+                        <input type="text" matInput formControlName="confirmEmail">
+                        <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error> 
+                    </mat-form-field>
+    
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+                           <!-- loginInfo -->
+                           <mat-card class="form-card" [formGroup]="loginInfoForm">
+                            <mat-card-header>
+                                <mat-card-subtitle>Username :</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div fxLayout="row wrap" fxLayoutGap="20%">
+                                <mat-form-field appearance="fill" fxFlex="40%">
+                                    <mat-label>Password</mat-label>
+                                    <input type="text" matInput formControlName="password">
+                                    <small class="error-text" *ngIf="showPasswordError$ | async">Les deux mot de passe ne correspondent pas</small>
+                                    <mat-error>{{ getFormControlErrorText(passwordCtrl) }}</mat-error> 
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="40%">
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input type="text" matInput formControlName="confirmPassword">
+                                    <mat-error>{{ getFormControlErrorText(confirmPasswordCtrl) }}</mat-error> 
+                                </mat-form-field>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutGap="20%">
+                                    <mat-form-field appearance="fill" fxFlex="40%">
+                                        <mat-label>Username</mat-label>
+                                        <input type="text" matInput formControlName="username">
+                                        <mat-error>{{ getFormControlErrorText(usernameCtrl) }}</mat-error> 
+                                    </mat-form-field>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+
+     <!-- list-produit-->
+         <mat-card class="form-card" formArrayName="list-produits">
+        <mat-card-header>
+            <mat-card-subtitle>Produits :</mat-card-subtitle>
+            <button mat-mini-fab color="primary" aria-label="" (click)="addProduitToList()" fxFlex="4%">
+                <mat-icon>add</mat-icon>
+              </button>
+        </mat-card-header>
+        <mat-card-content>
+         <ng-container *ngFor="let produit of productFormArray.controls; let index = index ">
+         <app-product-item [productItemGroup]="produit" (deleteProductEvent)="removeProductItem($$event)" [index]="index"></app-product-item>
+         </ng-container>     
+        </mat-card-content>
+    </mat-card>
+
+        
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-flat-button color="primary"  [disabled]="commandeForm.invalid" (click)="onSubmit()">Valider</button>
+    </mat-card-actions>
+</mat-card>

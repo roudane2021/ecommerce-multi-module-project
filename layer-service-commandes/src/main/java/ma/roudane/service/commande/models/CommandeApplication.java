@@ -3,6 +3,7 @@ package ma.roudane.service.commande.models;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @ToString
@@ -10,13 +11,34 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CommandeApplication {
-    private int id;
 
-    private Integer productId;
+
+
 
     private LocalDateTime dateCommande;
 
-    private Integer quantite;
 
-    private Boolean commandePayee;
+    private String firstName;
+
+
+    private String lastName;
+
+
+    private CommandeStatus status;
+
+
+    private String email;
+
+
+    private String phone;
+
+
+    private String username;
+
+
+    private String password;
+
+
+    private List<LigneCommandeApplication> ligneCommandes;
+
 }

@@ -9,6 +9,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PrixValidDirective } from './directives/prix-valid.directive';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { ShortenDirective } from './directives/shorten.directive';
+import { SelectedDirective } from './directives/selected.directive';
+import { SelectElementComponent } from './components/select-elements/select-element/select-element.component';
+import { SelectElementsComponent } from './components/select-elements/select-elements.component';
+import { AllElementsComponent } from './components/select-elements/all-elements/all-elements.component';
+import { TableComponent } from './components/table/table.component';
 
 
 
@@ -17,7 +22,12 @@ import { ShortenDirective } from './directives/shorten.directive';
   declarations: [
     PrixValidDirective,
     ShortenPipe,
-    ShortenDirective
+    ShortenDirective,
+    SelectedDirective,
+    SelectElementComponent,
+    SelectElementsComponent,
+    AllElementsComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +44,12 @@ import { ShortenDirective } from './directives/shorten.directive';
     InfiniteScrollModule,
     PrixValidDirective,
     ShortenPipe,
-    ShortenDirective
+    ShortenDirective,
+    SelectedDirective,
+    SelectElementComponent,
+    SelectElementsComponent,
+    AllElementsComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }

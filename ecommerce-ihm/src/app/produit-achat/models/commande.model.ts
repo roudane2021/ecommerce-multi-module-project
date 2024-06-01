@@ -14,11 +14,12 @@ export interface Commande {
     password: string,
     confirmPassword: string
   },
-  produits?: Produit[]
+  produits?: IProduit[]
 
   }
 
-  export interface Produit{
+  export interface IProduit{
     produitID: number,
+    name: string,
     qte: number
   }

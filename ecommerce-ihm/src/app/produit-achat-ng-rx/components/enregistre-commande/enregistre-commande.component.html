@@ -1,0 +1,133 @@
+<mat-card class="container" [formGroup]="mainForm">
+    <mat-card-header>
+        <mat-card-title>Commande</mat-card-title>
+    </mat-card-header>
+
+
+    <mat-card-content>
+
+           <!-- User Info-->
+        <mat-card class="form-card" formGroupName="userInfo">
+            <mat-card-header>
+                <mat-card-subtitle>User Info :</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row wrap" fxLayoutGap="20%">
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Prénom</mat-label>
+                    <input type="text" matInput formControlName="firstName">
+                    <mat-error>Ce champ est requis</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex="40%">
+                    <mat-label>Nom</mat-label>
+                    <input type="text" matInput formControlName="lastName">
+                    <mat-error>Ce champ est requis</mat-error>
+                </mat-form-field>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+         <!-- Contact Preference-->
+        <mat-card class="form-card" formGroupName="contactPreference">
+         <mat-card-header>
+            <mat-card-subtitle>Comment préférez-vous que l'on vous contacte ?</mat-card-subtitle>
+            </mat-card-header>
+           <mat-card-content>
+            <mat-radio-group [formControl]="contactPreferenceCtrl">
+                <mat-radio-button value="email">Mail</mat-radio-button>
+                <mat-radio-button value="phone">Téléphone</mat-radio-button>
+            </mat-radio-group>             
+            </mat-card-content>
+        </mat-card>
+
+         <!-- Email -->
+         <mat-card class="form-card" [formGroup]="emailForm" *ngIf="showEmailCtrl$ | async">
+            <mat-card-header>
+               <mat-card-subtitle>Email :</mat-card-subtitle>
+               </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap" fxLayoutGap="20%">
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Email</mat-label>
+                        <input type="text" matInput formControlName="email">
+                        <mat-error>{{getFormControlErrorText(emailCtrl)}}</mat-error>
+                        <small class="error-text" *ngIf="showEmailError$ | async">Les deux adresses ne correspondent pas</small>
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Confirme Email</mat-label>
+                        <input type="text" matInput formControlName="cofirmEmail">
+                        <mat-error>{{getFormControlErrorText(confirmEmailCtrl)}}</mat-error>
+                    </mat-form-field>
+                </div>     
+               </mat-card-content>
+           </mat-card>
+
+            <!-- Phone -->
+         <mat-card class="form-card"  *ngIf="showPhoneCtrl$ | async">
+            <mat-card-header>
+               <mat-card-subtitle>Phone :</mat-card-subtitle>
+               </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap" >
+                <mat-form-field appearance="fill" fxFlex="60%">
+                    <mat-label>Numéro de téléphone</mat-label>
+                    <input type="text" matInput [formControl]="phoneCtrl">
+                    <mat-error>{{ getFormControlErrorText(phoneCtrl) }}</mat-error>
+                </mat-form-field>   
+                </div>       
+               </mat-card-content>
+           </mat-card>
+
+             <!-- authonitification-->
+         <mat-card class="form-card" [formGroup]="loginUserForm">
+            <mat-card-header>
+               <mat-card-subtitle>Authonitification :</mat-card-subtitle>
+               </mat-card-header>
+              <mat-card-content>
+                <div fxLayout="row wrap" fxLayoutGap="20%">
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Nom d'utilisateur</mat-label>
+                        <input type="text" matInput formControlName="username">
+                        <mat-error>{{ getFormControlErrorText(userNameCtrl) }}</mat-error>
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Mot de passe</mat-label>
+                        <input type="password" matInput formControlName="password">
+                        <mat-error>Ce champ est requis</mat-error>
+                        <small class="error-text" *ngIf="showPasswordError$ | async">Les deux mot de passe ne correspondent pas</small>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-label>Confirmer votre mot de passe</mat-label>
+                        <input type="password" matInput formControlName="confirmPassword">
+                        <mat-error>Ce champ est requis</mat-error>
+                    </mat-form-field>
+                </div>
+               </mat-card-content>
+           </mat-card>
+
+
+            <!-- List Produit -->
+         <mat-card class="form-card" formArrayName="produits">
+            <mat-card-header fxLayout="row wrap" fxLayoutAlign="space-between center" >
+               <mat-card-subtitle fxFlex="40%" >Produit </mat-card-subtitle>
+               <button mat-mini-fab color="primary" aria-label="" (click)="addProduitToList()" fxFlex="4%">
+                <mat-icon>add</mat-icon>
+              </button>
+               </mat-card-header>
+              <mat-card-content>
+                    <ng-container  *ngFor="let produit of listProduit.controls; let i = index">
+                 <app-line-commande [lineProduit]="transferToFormGroup(produit)" [lineIndex]="i" (eventDelete)="deleteElement($event)"></app-line-commande>
+                </ng-container>     
+               </mat-card-content>
+           </mat-card>
+
+        
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-flat-button color="primary" [disabled]="showFormMainError$ | async" (click)="onSubmitForm()" >Valider</button>
+    </mat-card-actions>
+</mat-card>

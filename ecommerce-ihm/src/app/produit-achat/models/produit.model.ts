@@ -1,16 +1,4 @@
-export interface Page {
-    content?: Produit[]
-    pageable?: Pageable
-    totalElements?: number
-    totalPages?: number
-    last?: boolean
-    number?: number
-    sort?: Sort
-    size?: number
-    numberOfElements?: number
-    first?: boolean
-    empty?: boolean
-  }
+
   
   export interface Produit {
     id?: number
@@ -19,21 +7,7 @@ export interface Page {
     image?: string
     prix?: number
   }
-  
-  export interface Pageable {
-    sort?: Sort
-    offset?: number
-    pageNumber?: number
-    pageSize?: number
-    paged?: boolean
-    unpaged?: boolean
-  }
-  
-  export interface Sort {
-    empty?: boolean
-    sorted?: boolean
-    unsorted?: boolean
-  }
+
 
   export class Criteria {
     name!: string;

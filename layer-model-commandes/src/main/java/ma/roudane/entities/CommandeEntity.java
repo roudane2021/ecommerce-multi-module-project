@@ -2,11 +2,9 @@ package ma.roudane.entities;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "commande")
@@ -15,17 +13,37 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommandeEntity {
+public class CommandeEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private int id;
 
-    private Integer productId;
 
+    @Column(name = "date_commande")
     private LocalDateTime dateCommande;
 
-    private Integer quantite;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
 
-    private Boolean commandePayee;
+    @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
+    private CommandeStatus status;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
+    @OneToMany(mappedBy = "commande", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LigneCommandeEntity> ligneCommandes;
+
+
+
 }

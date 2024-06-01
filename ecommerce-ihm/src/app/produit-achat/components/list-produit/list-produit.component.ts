@@ -1,8 +1,9 @@
 import { AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ProduitService } from '../../services/produit.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ActionP, Criteria, Page, ResponseEvent } from '../../models/produit.model';
+import { ActionP, Criteria, Produit, ResponseEvent } from '../../models/produit.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from '../../../shared/models/page.model';
 
 @Component({
   selector: 'app-list-produit',
@@ -15,7 +16,7 @@ export class ListProduitComponent implements OnInit , OnDestroy{
 
   // Observable
   loading$!: Observable<boolean>;
-  page$!: Observable<Page>;
+  page$!: Observable<Page<Produit>>;
   private unsubscribe$ : Subject<void> = new Subject<void>();
   // Service 
   private produitService: ProduitService = inject(ProduitService);
