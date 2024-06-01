@@ -13,6 +13,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 
 
@@ -31,7 +33,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ScrollingModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

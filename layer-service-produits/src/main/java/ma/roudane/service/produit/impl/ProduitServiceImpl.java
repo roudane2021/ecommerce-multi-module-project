@@ -40,9 +40,10 @@ public class ProduitServiceImpl  implements IProduitService {
     @Transactional
     public ProduitApplication save(ProduitApplication produit) {
 
-        ProduitEntity entity = this.produitRepository.save(mapper.toEntity(produit));
+        final  ProduitEntity produitEntity = mapper.toEntity(produit);
+       final  ProduitEntity produitEntityBD = this.produitRepository.save(produitEntity);
 
-        return mapper.toApplication(entity);
+        return mapper.toApplication(produitEntityBD);
     }
 
     @Override

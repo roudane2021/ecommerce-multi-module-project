@@ -1,0 +1,25 @@
+<div fxLayout="row wrap" fxLayoutGap="5%" [formGroup]="productItemGroup">
+    <mat-form-field appearance="fill" fxFlex="30%">
+        <mat-label>Pays</mat-label>
+        <mat-select formControlName="id" >
+       <ng-container *ngFor="let produit of products$ | async ">
+        <mat-option value="{{ produit.id}}">{{ produit.titre}}</mat-option>
+       </ng-container>
+        </mat-select>
+        <mat-error>Ce champ est requis</mat-error>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill" fxFlex="30%">
+        <mat-label>Qte :</mat-label>
+        <input type="text" matInput  formControlName="qte" appPrixValid>
+        <mat-error>Ce champ est requis</mat-error>
+    </mat-form-field >
+
+
+      <div fxFlex="30%">
+        <button mat-mini-fab color="warn" aria-label="" (click)="deleteItem()">
+            <mat-icon>remove</mat-icon>
+          </button>
+      </div>
+
+</div>

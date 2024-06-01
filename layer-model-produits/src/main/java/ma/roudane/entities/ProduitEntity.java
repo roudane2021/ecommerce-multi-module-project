@@ -24,4 +24,6 @@ public class ProduitEntity {
     private String image;
 
     private Double prix;
+
+    private Integer quantite;
 }

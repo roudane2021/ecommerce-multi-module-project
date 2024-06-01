@@ -1,0 +1,22 @@
+<div class="container" fxLayout="row wrap" fxLayoutAlign="space-between">
+<app-all-elements class="border" fxFlex="40%" [elements]="elementsAll"></app-all-elements>
+<div fxFlex="5%" fxLayout="column wrap" fxLayoutAlign="space-between">
+    <button mat-mini-fab color="primary" aria-label="" (click)="addElements()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    <button mat-mini-fab color="primary" aria-label="" (click)="addAllElements()" >
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" aria-label="" (click)="removeElements()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn"  aria-label="" (click)="removeAllElements()">
+        <mat-icon>keyboard_arrow_left</mat-icon> 
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      
+</div>
+<app-select-element class="border" fxFlex="40%" [elements]="elementsSelected"></app-select-element>
+</div>
+<button mat-raised-button color="primary" (click)="envoyer()">Envoyer</button>

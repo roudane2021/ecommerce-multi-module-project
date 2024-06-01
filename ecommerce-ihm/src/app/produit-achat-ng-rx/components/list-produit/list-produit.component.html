@@ -1,5 +1,24 @@
-<button (click)="increment()">Increment</button>
-<ng-container *ngIf="count$ | async as count">
-    <div>Current Count: {{ count }}</div>sssssssssssssssssssssssssssssssssssssssss
+<app-parent></app-parent>
+<ng-container *ngIf="page$ | async as page">
+  <div class="filter">
+    <app-filter-produit (sendFilter)="onUpdateFilter($event)" (sendApplyFilter)="onApplyFilter($event)"></app-filter-produit>
+  </div>
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="space-between">
+    <ng-container *ngFor="let produit of page.content">
+      <app-item-list-produit fxFlex="45%" [produit]="produit" (event)="onApplyAction($event)"></app-item-list-produit>
+    </ng-container>
+  </div>
+
+  <mat-paginator [length]="page.totalElements"
+              [pageSize]="5"
+              [pageSizeOptions]="[2, 5, 10]"
+              (page)="loadNextPage($event)"
+              [showFirstLastButtons]="true"
+              aria-label="Select page">
+</mat-paginator>
 </ng-container>
 
+
+<ng-container *ngIf="loading$ | async">
+  <mat-spinner class="spinner"></mat-spinner>
+</ng-container>

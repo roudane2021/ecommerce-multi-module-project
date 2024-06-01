@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IProduitAppMapper {
 
+
     ProduitEntity toEntity(ProduitApplication produitApplication);
     ProduitApplication toApplication(ProduitEntity produitEntity);
 

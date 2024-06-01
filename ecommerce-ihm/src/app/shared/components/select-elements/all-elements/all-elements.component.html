@@ -1,0 +1,9 @@
+<div class="list-elements">
+  <mat-list >
+      <ng-container *ngFor="let element of elements">
+        <mat-list-item selected (click)="toggleSelection(element)">
+          {{element}}
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+  </div>

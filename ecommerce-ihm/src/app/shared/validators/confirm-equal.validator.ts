@@ -7,8 +7,8 @@ export function confirmEqualValidator(main: string, confirm: string): ValidatorF
                 confirmEqual: 'Invalid control names'
             };
         }
-        const mainValue = ctrl.get(main)!.value;
-        const confirmValue = ctrl.get(confirm)!.value;
+        const mainValue = ctrl.get(main)?.value;
+        const confirmValue = ctrl.get(confirm)?.value;
         
         return mainValue === confirmValue ? null : {
             confirmEqual: {

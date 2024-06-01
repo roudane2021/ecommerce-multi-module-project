@@ -1,13 +1,22 @@
 spring:
+  # pour msgs
+  messages:
+    basename: messages
+    # pour résoudre un problème avec Swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     name: microservice-commandes
   cloud:
     config:
       uri: http://localhost:8801
   liquibase:
-    enabled: false
+    enabled: true
 
-#actua
+
+
+#actua spring.mvc.pathmatch.matching-strategy=ant_path_matcher
 management:
   endpoints:
     web:

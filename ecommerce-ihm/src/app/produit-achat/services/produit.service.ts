@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, delay, filter, of, pipe, tap } from 'rxjs';
 import { wsService } from 'src/app/shared/url-ws/url.ws';
-import { Criteria, Page, Produit } from '../models/produit.model';
+import { Criteria, Produit } from '../models/produit.model';
 import { environment } from 'src/environments/environment';
+import { Page } from '../../shared/models/page.model';
 
 @Injectable()
 export class ProduitService {
 
   private _loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _page$: BehaviorSubject<Page> = new BehaviorSubject<Page>({} as Page);
+  private _page$: BehaviorSubject<Page<Produit>> = new BehaviorSubject<Page<Produit>>({} as Page<Produit>);
   private _filter$: BehaviorSubject<Criteria[]> = new BehaviorSubject<Criteria[]>([]);
   private _applyFilter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -18,7 +19,7 @@ export class ProduitService {
   get loading$(): Observable<boolean> {
     return this._loading$.asObservable();
   }
-  get page$(): Observable<Page>{
+  get page$(): Observable<Page<Produit>>{
     return this._page$.asObservable();
   }
 
@@ -56,11 +57,11 @@ getPageProduit(): void {
   this.setLoadingStatus(true);
 
   // Effectue une requête POST HTTP pour obtenir la page de produits.
-  this.httpClient.post<Page>(`${wsService.produit.searchProduit}?page=${nbPage}&size=${size}`, criteria).pipe(
+  this.httpClient.post<Page<Produit>>(`${wsService.produit.searchProduit}?page=${nbPage}&size=${size}`, criteria).pipe(
     // Ajoute un délai simulé de 2000 millisecondes pour simuler le chargement.
     delay(environment.delay_default),
     // Traite la réponse de la requête.
-    tap((page: Page) => {
+    tap((page: Page<Produit>) => {
     
       // Indique que le chargement a été terminé.
       this.setLoadingStatus(false);
@@ -134,7 +135,7 @@ private autoriseLoadingNextPage(size: number): boolean {
  * @param page Les informations de la page à ajouter ou mettre à jour.
  * @param nbPage Le numéro de la page à traiter.
  */
-private setProduis(page: Page, nbPage: number): void {
+private setProduis(page: Page<Produit>, nbPage: number): void {
   // Si nbPage est 0, remplace complètement le contenu de _page$ avec les informations de la première page.
   if (nbPage === 0) {
     this._page$.next(page);
@@ -148,7 +149,7 @@ private setProduis(page: Page, nbPage: number): void {
     const newContent: Produit[] = [...currentContent, ...(page?.content || [])];
 
     // Crée une nouvelle page en copiant les informations de la page actuelle et en remplaçant le contenu par le nouveau contenu.
-    const newPage: Page = { ...page, content: newContent };
+    const newPage: Page<Produit> = { ...page, content: newContent };
 
     // Met à jour _page$ avec la nouvelle page.
     this._page$.next(newPage);
@@ -167,7 +168,7 @@ private getNbPage(applyFilter: boolean): number {
   }
 
   // Obtient la page actuelle à partir de l'observable _page$.
-  const page: Page = this._page$.getValue();
+  const page: Page<Produit> = this._page$.getValue();
 
   // Utilise l'opérateur de coalescence nulle (??) pour fournir une valeur par défaut si page ou page.number est nul ou indéfini.
   // La valeur par défaut est -1, ce qui peut indiquer qu'aucun numéro de page valide n'est disponible.

@@ -1,0 +1,34 @@
+<table mat-table [dataSource]="content" class="mat-elevation-z8">
+
+
+   <!-- Définition des colonnes existantes -->
+  <ng-container *ngFor="let column of displayedColumns">
+
+    <ng-container *ngIf="column != 'Action'">
+    <ng-container matColumnDef="{{column}}">
+      <th mat-header-cell *matHeaderCellDef>{{getSecondPart(column)}}</th>
+      <td mat-cell *matCellDef="let element">{{getNestedValue(element, column)}}</td>
+    </ng-container>
+    </ng-container>
+
+    <!-- Condition pour afficher les boutons d'action uniquement dans la dernière colonne -->
+    <ng-container *ngIf="column === 'Action'">
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button mat-small color="primary" (click)="edit(element)">
+            <mat-icon>create</mat-icon>
+          </button>
+          <button mat-icon-button mat-small color="warn" (click)="delete(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+    <!-- Définition des en-têtes de colonnes -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+  <!-- Définition des lignes de données -->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

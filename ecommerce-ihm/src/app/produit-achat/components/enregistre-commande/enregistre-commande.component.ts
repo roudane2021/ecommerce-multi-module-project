@@ -4,6 +4,7 @@ import { CommandeService } from '../../services/commande.service';
 import { Observable, map, startWith, tap } from 'rxjs';
 import { confirmEqualValidator } from 'src/app/shared/validators/confirm-equal.validator';
 import { usernameValidator } from '../../../shared/validators/username.validator';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-enregistre-commande',
@@ -16,6 +17,7 @@ export class EnregistreCommandeComponent implements OnInit{
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private commandeService: CommandeService = inject(CommandeService);
+  private userService: UserService = inject(UserService);
 
   mainForm!: FormGroup;
   contactPreferenceCtrl!: FormControl;
@@ -74,7 +76,7 @@ export class EnregistreCommandeComponent implements OnInit{
 
     this.userNameCtrl = this.formBuilder.control('', {
       validators: [Validators.required],
-      asyncValidators: [usernameValidator(this.commandeService)],
+      asyncValidators: [usernameValidator(this.userService)],
       updateOn: 'blur'
     });
     this.passwordCtrl = this.formBuilder.control('', [Validators.required]);

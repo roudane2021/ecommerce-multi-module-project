@@ -1,0 +1,16 @@
+<ng-container *ngIf="page$ | async as page">
+    <app-table [content]="page.content" (senEvent)="receiveEvent($event)"></app-table>
+
+<mat-paginator [length]="page.totalElements"
+    [pageSize]="6"
+    [pageSizeOptions]="[6]"
+    (page)="loadNextPage($event)"
+    [showFirstLastButtons]="true"
+    aria-label="Select page">
+</mat-paginator>
+
+</ng-container>
+
+<ng-container *ngIf="loading$ | async">
+    <mat-spinner class="spinner"></mat-spinner>
+  </ng-container>

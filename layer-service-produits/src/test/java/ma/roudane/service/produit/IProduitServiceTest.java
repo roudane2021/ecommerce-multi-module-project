@@ -83,7 +83,7 @@ public class IProduitServiceTest {
 
     private ProduitApplication getProduitApp() {
 
-        return ProduitApplication.builder().id(1)
+        return ProduitApplication.builder()
                 .titre("Test Titre")
                 .prix(15.5)
                 .description("Description1")
@@ -102,13 +102,13 @@ public class IProduitServiceTest {
 
     private List<ProduitApplication> getProduitAppList() {
 
-        ProduitApplication p1 = ProduitApplication.builder().id(1)
+        ProduitApplication p1 = ProduitApplication.builder()
                 .titre("Test Titre")
                 .prix(15.5)
                 .description("Description1")
                 .image("Test").build();
 
-        ProduitApplication p2 = ProduitApplication.builder().id(2)
+        ProduitApplication p2 = ProduitApplication.builder()
                 .titre("Test Titre 2")
                 .prix(16.5)
                 .description("Description2")
@@ -123,6 +123,7 @@ public class IProduitServiceTest {
                 .titre("Test Titre")
                 .prix(15.5)
                 .description("Description1")
+
                 .image("Test").build();
 
         ProduitEntity p2 = ProduitEntity.builder().id(2)

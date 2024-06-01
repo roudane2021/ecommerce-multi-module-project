@@ -20,9 +20,9 @@ export class PrixValidDirective {
   }
 
   private isValidPrice(value: string): boolean {
-    // Vérifie si la valeur est composée uniquement de chiffres et n'est pas négative ni égale à zéro
-    return /^\d+$/.test(value) && parseInt(value, 10) > 0;
-  }
+    // Vérifie si la valeur est un nombre décimal ou entier positif supérieur à zéro
+    return /^[0-9]+(\.[0-9]+)?$/.test(value) && parseFloat(value) > 0;
+}
 
 
 }
