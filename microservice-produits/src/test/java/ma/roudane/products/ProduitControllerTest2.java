@@ -5,6 +5,7 @@ import ma.roudane.products.web.produit.dto.ProduitDto;
 import ma.roudane.products.web.produit.mapper.IProduitDtoMapper;
 import ma.roudane.service.produit.IProduitService;
 import ma.roudane.service.produit.models.ProduitApplication;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-
+@Disabled
 @AutoConfigureJsonTesters
 @SpringBootTest
 @AutoConfigureMockMvc

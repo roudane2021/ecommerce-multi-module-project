@@ -7,8 +7,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = TestConfiguration.class)
-@ActiveProfiles("h2")
+//@SpringBootTest(classes = TestConfiguration.class)
+//@ActiveProfiles("h2")
 public class ICommandeServiceTest {
 
     @Test

@@ -1,3 +1,0 @@
-/opt/backend/ecommerce-multi-module-project/gateway-server/src/main/java/ma/roudane/gatewayserver/GatewayServerApplication.java
-/opt/backend/ecommerce-multi-module-project/gateway-server/src/main/java/ma/roudane/gatewayserver/config/PostGlobalResponseFilter.java
-/opt/backend/ecommerce-multi-module-project/gateway-server/src/main/java/ma/roudane/gatewayserver/config/AuthorizationHeaderFilter.java

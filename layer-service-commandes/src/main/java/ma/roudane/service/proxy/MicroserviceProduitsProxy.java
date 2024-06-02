@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "${feign.client.microservice-produits.name}", url = "${feign.client.microservice-produits.url}", configuration = MicroserviceProduitsFeignConfig.class)
 public interface MicroserviceProduitsProxy {
 
-    @PostMapping(value = "/autorisation-produitsd")
+    @PostMapping(value = "/autorisation-produits")
     ResponseEntity<AutorisationCommandeResponse> autorisationCommande(@RequestBody AutorisationCommandeProduisRequest requestDto);
 
 }

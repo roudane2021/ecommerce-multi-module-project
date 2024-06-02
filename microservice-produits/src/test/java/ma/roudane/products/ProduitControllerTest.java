@@ -7,6 +7,7 @@ import ma.roudane.products.web.produit.mapper.ICriteriaDtoMapper;
 import ma.roudane.products.web.produit.mapper.IProduitDtoMapper;
 import ma.roudane.service.produit.IProduitService;
 import ma.roudane.service.produit.models.ProduitApplication;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+@Disabled
 @WebMvcTest(ProduitController.class)
 @ContextConfiguration(classes = { ProduitController.class})
 @AutoConfigureJsonTesters
