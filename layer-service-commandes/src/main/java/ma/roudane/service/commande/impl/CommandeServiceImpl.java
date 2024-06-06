@@ -84,14 +84,7 @@ public class CommandeServiceImpl implements ICommandeService {
         return mapper.toApp(commandeEntityAfterSaved);
     }
 
-    private boolean isAutorisationAcceptee(final ResponseEntity<AutorisationCommandeResponse>  response ) {
 
-        return  Optional.ofNullable(response)
-                .filter(res -> HttpStatus.OK.equals(response.getStatusCode()))
-                .map(ResponseEntity::getBody)
-                .map(AutorisationCommandeResponse::getAccepted)
-                .orElse(0) == 1 ;
-    }
 
     @Override
     public Page<CommandeApplication> searchCommandes(Pageable pageable, List<CriteriaApp> criteriaDtos) {
@@ -104,7 +97,7 @@ public class CommandeServiceImpl implements ICommandeService {
         return commandeRepository.findById(id).map(mapper::toApp);
     }
 
-    private List<LigneCommandeEntity> prepareLigneCommandeEntities( final CommandeEntity commandeEntity) {
+    public List<LigneCommandeEntity> prepareLigneCommandeEntities( final CommandeEntity commandeEntity) {
         if (Objects.isNull(commandeEntity) || CollectionUtils.isEmpty(commandeEntity.getLigneCommandes())) {
             return Collections.emptyList();
         }
@@ -114,7 +107,7 @@ public class CommandeServiceImpl implements ICommandeService {
                 .collect(Collectors.toList());
     }
 
-    private Set<ProduitCommandeRequest> prepareProduitCommandeRequest( final CommandeApplication commandeApplication) {
+    public Set<ProduitCommandeRequest> prepareProduitCommandeRequest( final CommandeApplication commandeApplication) {
         if (Objects.isNull(commandeApplication) || CollectionUtils.isEmpty(commandeApplication.getLigneCommandes())) {
             return Collections.emptySet();
         }
@@ -124,7 +117,7 @@ public class CommandeServiceImpl implements ICommandeService {
                 .collect(Collectors.toCollection(HashSet::new));
     }
 
-    private AutorisationCommandeProduisRequest prepareRequestAutorisationCommande( final CommandeApplication commandeApplication) {
+    public AutorisationCommandeProduisRequest prepareRequestAutorisationCommande( final CommandeApplication commandeApplication) {
 
         final AutorisationCommandeProduisRequest.AutorisationCommandeProduisRequestBuilder builderRequest = AutorisationCommandeProduisRequest.builder();
 
@@ -133,7 +126,7 @@ public class CommandeServiceImpl implements ICommandeService {
         return  builderRequest.build();
     }
 
-    private Specification<CommandeEntity> constructCriteria(final List<CriteriaApp> criteriaApplications) {
+    public Specification<CommandeEntity> constructCriteria(final List<CriteriaApp> criteriaApplications) {
         List<CriteriaApp> criteriaApplicationsFilter = this.filterCriterias(criteriaApplications);
         return (root, query, criterBuilder) -> {
             Predicate predicate = criterBuilder.conjunction();
@@ -147,7 +140,7 @@ public class CommandeServiceImpl implements ICommandeService {
 
     }
 
-    private Predicate createPredicate(CriteriaApp criteriaApplication, Root<CommandeEntity> root, CriteriaBuilder criteriaBuilder) {
+    public Predicate createPredicate(CriteriaApp criteriaApplication, Root<CommandeEntity> root, CriteriaBuilder criteriaBuilder) {
         OperatorApp operator = criteriaApplication.getOperator();
         Expression<?> fieldExpression = getFieldExpression(criteriaApplication.getName(), root);
         Object value = transferType(root, criteriaApplication);
@@ -176,7 +169,7 @@ public class CommandeServiceImpl implements ICommandeService {
     }
 
 
-    private static  Object transferType(Root<?> root, CriteriaApp element) {
+    public static  Object transferType(Root<?> root, CriteriaApp element) {
         Class<?> cl = root.get(element.getName()).getJavaType();
         if (Integer.class.isAssignableFrom(cl)) {
             return Integer.valueOf(element.getValue().toString());
@@ -189,21 +182,21 @@ public class CommandeServiceImpl implements ICommandeService {
     }
 
 
-    private static  List<Field> getEntityFields(Class<?> entityClass) {
+    public static  List<Field> getEntityFields(Class<?> entityClass) {
         return Stream.of(entityClass.getDeclaredFields())
                 .collect(Collectors.toList());
     }
 
-    private static boolean isFieldExists(String fieldName, List<Field> fields) {
+    public static boolean isFieldExists(String fieldName, List<Field> fields) {
         return fields.stream()
                 .anyMatch(field -> StringUtils.equals(fieldName, field.getName()));
     }
 
-    private Expression<?> getFieldExpression(String field, Root<CommandeEntity> root) {
+    public Expression<?> getFieldExpression(String field, Root<CommandeEntity> root) {
         return root.get(field);
     }
 
-    private List<CriteriaApp> filterCriterias(List<CriteriaApp> criters) {
+    public List<CriteriaApp> filterCriterias(List<CriteriaApp> criters) {
         if (CollectionUtils.isEmpty(criters)) {
             return Collections.emptyList();
         }
@@ -211,6 +204,15 @@ public class CommandeServiceImpl implements ICommandeService {
                 criter -> Objects.nonNull(criter) && StringUtils.isNotBlank(criter.getName()) && Objects.nonNull(criter.getValue())
                         && isFieldExists(criter.getName(), getEntityFields(CommandeEntity.class))
         ).collect(Collectors.toList());
+    }
+
+    public boolean isAutorisationAcceptee(final ResponseEntity<AutorisationCommandeResponse>  response ) {
+
+        return  Optional.ofNullable(response)
+                .filter(res -> HttpStatus.OK.equals(response.getStatusCode()))
+                .map(ResponseEntity::getBody)
+                .map(AutorisationCommandeResponse::getAccepted)
+                .orElse(0) == 1 ;
     }
 
 

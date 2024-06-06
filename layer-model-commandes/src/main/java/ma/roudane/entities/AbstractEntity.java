@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public abstract class AbstractEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
