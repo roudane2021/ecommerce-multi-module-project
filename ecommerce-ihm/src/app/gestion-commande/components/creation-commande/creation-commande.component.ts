@@ -9,6 +9,11 @@ import { UserService } from '../../../shared/services/user.service';
 import { emailValidator } from '../../../shared/validators/email.validator';
 import { usernameValidator } from '../../../shared/validators/username.validator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as appState from '../../ng-rx/state/state';
+import * as commandeAction from '../../ng-rx/actions/commande.action';
+import * as commandeSelector from '../../ng-rx/selectors/commande.selector';
+import { Commande, CommandeForm } from '../../models/commande.model';
 
 @Component({
   selector: 'app-commande',
@@ -20,11 +25,13 @@ export class CreationCommandeComponent implements OnInit, OnDestroy{
 
 
 
+
   private readonly _commandeService: CommandeService = inject(CommandeService);
   private readonly _userService: UserService = inject(UserService);
   private readonly _utilsService: UtilsService = inject(UtilsService);
   private readonly _router: Router = inject(Router);
   private readonly _route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly store: Store<any> = inject(Store<appState.FeatureState>);
 
 
   commandeForm!: FormGroup;
@@ -53,7 +60,7 @@ export class CreationCommandeComponent implements OnInit, OnDestroy{
 
   pays$!: Observable<string[]>;
   ville$!: Observable<string[]>;
-$$event: any;
+   $$event: any;
 
 
 
@@ -110,7 +117,7 @@ $$event: any;
       'email': this.emailForm,
       'phone': this.phoneCtrl,
       'loginInfo': this.loginInfoForm,
-      'list-produits': this.productFormArray
+      'ligneCommandes': this.productFormArray
     });
   }
 
@@ -148,6 +155,14 @@ $$event: any;
    this.paysCtrl.valueChanges.pipe(
        takeUntil(this.destroy$),
        tap(pays => this.resetVillesList(pays))
+   ).subscribe();
+
+   this.store.select(commandeSelector.createCommandeSelector)
+   .pipe(
+    takeUntil(this.destroy$),
+    tap((commande : appState.CreateCommandeState) => {
+      this.createCommandeStatus(commande);
+    })
    ).subscribe();
     
 
@@ -209,16 +224,40 @@ $$event: any;
     }
 
     onSubmit() {
-      console.table(this.commandeForm.value)
-      this._commandeService.createCommande(this.commandeForm.value);
-      this._router.navigate(['../list-commande'],{relativeTo: this._route});
+      if(this.commandeForm.invalid){
+        return;
+      }
+      const commande: Commande = this.mapCommandeFormToCommande(this.commandeForm.value);
+      this.store.dispatch(commandeAction.CommandesActions.commandeActionAddStart({ commande }));
+      //this._router.navigate(['../list-commande'],{relativeTo: this._route});
 
+    }
+
+     mapCommandeFormToCommande(form: CommandeForm): Commande {
+      // Map ligneCommandes from produits
+      const ligneCommandes = form.ligneCommandes?.map(produit => ({
+        quantite: produit.quantite,
+        produitId: produit.produitId
+      })) || [];
+    
+      // Create the Commande object
+      const commande: Commande = {
+        firstName: form.userInfo.firstName,
+        lastName: form.userInfo.lastName,
+        email: form.email?.email,
+        phone: form.contactPreference === 'phone' ? form.phone : undefined,
+        username: form.loginInfo.username,
+        password: form.loginInfo.password,
+        ligneCommandes: ligneCommandes
+      };
+    
+      return commande;
     }
   
   addProduitToList = (): void => {
     const produitItem = new FormGroup({
-      id: new FormControl('', [Validators.required]),
-      qte: new FormControl('', [Validators.required])
+      produitId: new FormControl('', [Validators.required]),
+      quantite: new FormControl('', [Validators.required])
     });
     this.productFormArray.push(produitItem);
     }
@@ -232,6 +271,14 @@ $$event: any;
 
   removeProductItem(index: number) {
     this.productFormArray.removeAt(index);
+    }
+
+    createCommandeStatus(commande: appState.CreateCommandeState) {
+      
+      if (commande?.isCreated) {
+        this._router.navigate(['../list-commande'],{relativeTo: this._route});
+      }
+      
     }
 
 }

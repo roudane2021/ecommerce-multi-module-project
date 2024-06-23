@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 public class ProduitApplication {
 
 
+    private Integer id;
+
     private String titre;
 
     private String description;
