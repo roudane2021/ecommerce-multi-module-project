@@ -9,7 +9,7 @@ import { Commande } from "../../models/commande.model";
 
 
 
-export const commandEffect = createEffect(
+export const commandPaginationEffect = createEffect(
     (actions$ = inject(Actions), commandeService = inject(CommandeService)) => {
   
         return actions$.pipe(

@@ -13,7 +13,7 @@ import lombok.*;
 
 public class ProduitDto{
 
-
+   private Integer id;
 
     @ApiModelProperty(example = "Titre")
     private String titre;

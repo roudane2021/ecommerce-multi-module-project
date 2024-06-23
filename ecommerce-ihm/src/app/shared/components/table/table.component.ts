@@ -12,7 +12,7 @@ import { EventType, EventUser } from '../../models/event.model';
 export class TableComponent {
 
   
-  displayedColumns: string[] = ['userInfo.lastName', 'userInfo.firstName', 'email.email', 'phone', 'Action'];
+  displayedColumns: string[] = ['lastName', 'firstName', 'email', 'phone', 'Action'];
   @Input() content!: Commande[];
   @Output() senEvent: EventEmitter<EventUser> = new EventEmitter<EventUser>();
 

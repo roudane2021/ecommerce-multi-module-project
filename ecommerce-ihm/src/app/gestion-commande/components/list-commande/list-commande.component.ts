@@ -39,13 +39,17 @@ export class ListCommandeComponent implements OnInit, OnDestroy{
 
   initObsr = (): void => {
     this.page$ = this.store.select(commandeSelector.pageCommandeSelector).pipe(
-      takeUntil(this._unSubscriber));
+      takeUntil(this._unSubscriber),
+      tap(page => console.table(page))
+    
+    );
     this.loading$ = this.store.select(commandeSelector.apiSelector).pipe(
       takeUntil(this._unSubscriber));
   }
 
   loadNextPage(pageEvent: PageEvent) {
     const page = pageEvent?.pageIndex;
+    console.log("page suivant :"+page)
     this.store.dispatch(commandeAction.CommandesActions.commandeActionPaginationStart({ page }));
   }
   
