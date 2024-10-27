@@ -204,6 +204,7 @@ public class CommandeServiceImplTest {
             }
 
             return CommandeEntity.builder().build();
+            // pour test
 
         });
         given(mapper.toApp(any(CommandeEntity.class))).willReturn(commandeApplication);
