@@ -1,7 +1,19 @@
 import { Produit } from "./produit.model"
 import { Page } from '../../shared/models/page.model';
 
+
 export interface Commande {
+  firstName?: string;
+  lastName?: string; 
+  email?: string;
+  phone?: string;
+  username?: string;
+  password?: string;
+  ligneCommandes?: {quantite: number, produitId: number}[];
+}
+
+
+export interface CommandeForm {
     userInfo: {
       firstName: string,
       lastName: string
@@ -17,7 +29,7 @@ export interface Commande {
       password: string,
       confirmPassword: string
     },
-    produits?: Produit[]
+    ligneCommandes?: {quantite: number, produitId: number}[]
   
 }
 

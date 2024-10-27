@@ -1,7 +1,7 @@
 <div fxLayout="row wrap" fxLayoutGap="5%" [formGroup]="productItemGroup">
     <mat-form-field appearance="fill" fxFlex="30%">
-        <mat-label>Pays</mat-label>
-        <mat-select formControlName="id" >
+        <mat-label>Produit</mat-label>
+        <mat-select formControlName="produitId" >
        <ng-container *ngFor="let produit of products$ | async ">
         <mat-option value="{{ produit.id}}">{{ produit.titre}}</mat-option>
        </ng-container>
@@ -11,7 +11,7 @@
 
     <mat-form-field appearance="fill" fxFlex="30%">
         <mat-label>Qte :</mat-label>
-        <input type="text" matInput  formControlName="qte" appPrixValid>
+        <input type="text" matInput  formControlName="quantite" appPrixValid>
         <mat-error>Ce champ est requis</mat-error>
     </mat-form-field >
 

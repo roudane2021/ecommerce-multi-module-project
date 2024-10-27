@@ -5,6 +5,9 @@ export const wsService = {
         'searchProduit': `${environment.prefixApiProduit}/produits/searchProduit`,
         'produitByID': `${environment.prefixApiProduit}/produits/`
     },
-    'commande': {},
+    'commande': {
+        'createCommande': `${environment.prefixApiCommande}/commandes`,
+        'searchProduit': `${environment.prefixApiCommande}/commandes/search-commande`,
+    },
     'paiement': {}
 };

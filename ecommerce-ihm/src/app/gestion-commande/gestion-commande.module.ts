@@ -11,7 +11,8 @@ import { ProductService } from './services/product.service';
 import { ListCommandeComponent } from './components/list-commande/list-commande.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as commandEffect from './ng-rx/effects/commande.effect';
+import * as commandePaginationEffect from './ng-rx/effects/commandePagination.effect';
+import * as commandeCreationEffect from './ng-rx/effects/commandeCreation.effect';
 import { commandeFeatureKey, reducers } from './ng-rx/reducers/root.reducer';
 
 
@@ -29,7 +30,7 @@ import { commandeFeatureKey, reducers } from './ng-rx/reducers/root.reducer';
     GestionCommandeRoutingModule,
     CoreModule,
     StoreModule.forFeature(commandeFeatureKey, reducers),
-    EffectsModule.forFeature(commandEffect)
+    EffectsModule.forFeature(commandeCreationEffect, commandePaginationEffect)
   ],
   providers:[
     CommandeService,
