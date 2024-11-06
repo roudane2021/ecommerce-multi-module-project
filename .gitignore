@@ -24,7 +24,7 @@ microservice-paiements/target/
 
 config-server/target/
 eureka-server/target/
-layer-service-produits/target/
+gateway-server/target/
 
 
 
