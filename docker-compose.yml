@@ -1,0 +1,131 @@
+services:
+  ecommerce-config-server:
+    build: ./config-server
+    container_name: ecommerce-config-server
+    ports:
+      - '8801:8801'
+    expose:
+      - 8801
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8801/actuator/health"]
+      interval: 10s
+      retries: 5
+    networks:
+      - network_ecommerce
+  ecommerce-eureka-server:
+    build: ./eureka-server
+    container_name: ecommerce-eureka-server
+    ports:
+      - '8802:8802'
+    expose:
+      - 8802
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8802/actuator/health" ]
+      interval: 10s
+    environment:
+      - CONFIG_SERVER_URL=http://ecommerce-config-server:8801
+    networks:
+      - network_ecommerce
+    depends_on:
+      ecommerce-config-server:
+        condition: service_healthy
+  ecommerce-gateway-server:
+    build: ./gateway-server
+    container_name: ecommerce-gateway-server
+    ports:
+      - '8799:8799'
+    expose:
+      - 8799
+    environment:
+      - CONFIG_SERVER_URL=http://ecommerce-config-server:8801
+      - EUREKA_SERVER_URL=http://ecommerce-eureka-server:8802/eureka/
+    networks:
+      - network_ecommerce
+    depends_on:
+      ecommerce-eureka-server:
+        condition: service_healthy
+      oracle_xe:
+        condition: service_started
+      ecommerce-produits-service:
+        condition: service_started
+  oracle_xe:
+    image: "gvenzl/oracle-xe:latest"
+    container_name: oracle_xe
+    restart: always
+    ports:
+      - 1521:1521
+    networks:
+      - network_ecommerce
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=root
+      - APP_USER_PASSWORD=roudane123456
+    volumes:
+      - volume_ecommerce:/opt/oracle/oradata
+  ecommerce-produits-service:
+    build: ./microservice-produits
+    container_name: ecommerce-produits-service
+    ports:
+      - '8761:8761'
+    expose:
+      - 8761
+    environment:
+      - CONFIG_SERVER_URL=http://ecommerce-config-server:8801
+      - EUREKA_SERVER_URL=http://ecommerce-eureka-server:8802/eureka/
+      - APP_USERNAME=root
+      - APP_PASSWORD=roudane123456
+      - SPRING_PROFILES_ACTIVE=oracle
+      - URL_BDD_ORACLE=oracle_xe
+    networks:
+      - network_ecommerce
+    depends_on:
+      ecommerce-eureka-server:
+        condition: service_healthy
+      oracle_xe:
+        condition: service_started
+  ecommerce-commandes-service:
+    build: ./microservice-commandes
+    container_name: ecommerce-commandes-service
+    ports:
+      - '8762:8762'
+    expose:
+      - 8762
+    environment:
+      - CONFIG_SERVER_URL=http://ecommerce-config-server:8801
+      - EUREKA_SERVER_URL=http://ecommerce-eureka-server:8802/eureka/
+      - PRODUITS_SERVER_URL=http://ecommerce-produits-service:8761
+      - APP_USERNAME=root
+      - APP_PASSWORD=roudane123456
+      - SPRING_PROFILES_ACTIVE=oracle
+      - URL_BDD_ORACLE=oracle_xe
+    networks:
+      - network_ecommerce
+    depends_on:
+      ecommerce-eureka-server:
+        condition: service_healthy
+      oracle_xe:
+        condition: service_started
+      ecommerce-produits-service:
+        condition: service_started
+  ecommerce-ihm:
+    build: ./ecommerce-ihm
+    container_name: ecommerce-ihm
+    ports:
+      - '80:80'
+    expose:
+      - '80'
+    networks:
+      - network_ecommerce
+
+
+
+networks:
+  network_ecommerce:
+    external: true
+
+volumes:
+  volume_ecommerce:
+    external: true
+
+
+

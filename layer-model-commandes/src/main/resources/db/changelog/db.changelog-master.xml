@@ -5,4 +5,5 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <include file="db/changelog/v1/db.changelog-v1.xml" />
     <include file="db/changelog/19-05-24/db.changelog-19-05-24.xml" />
+    <include file="db/changelog/v2/create_sq_commande_seq_id.changelog-v4.xml" />
 </databaseChangeLog>

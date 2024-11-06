@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 public abstract class AbstractEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    @SequenceGenerator(name = "commande_seq", sequenceName = "commande_seq_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commande_seq")
+    protected Integer id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     protected LocalDateTime createdAt;
