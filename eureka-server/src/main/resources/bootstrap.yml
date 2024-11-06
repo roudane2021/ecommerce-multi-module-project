@@ -3,10 +3,13 @@ spring:
     name: eureka-server
   cloud:
     config:
-      uri: http://localhost:8801
+      uri: ${CONFIG_SERVER_URL:http://localhost:8801}
 
 management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: "*"
+  endpoint:
+    health:
+      show-details: "always"

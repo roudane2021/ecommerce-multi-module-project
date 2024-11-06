@@ -15,9 +15,6 @@ import javax.persistence.*;
 public class LigneCommandeEntity extends AbstractEntity {
 
 
-    @Id
-    @GeneratedValue
-    private int id;
 
     @Column(name = "quantite")
     private Integer quantite;

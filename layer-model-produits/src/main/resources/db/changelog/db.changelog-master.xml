@@ -5,4 +5,5 @@
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <include file="db/changelog/v1/p_db.changelog-v1.xml" />
     <include file="db/changelog/v3/p_db.changelog-v3.xml" />
+    <include file="db/changelog/v4/create_sq_produit_seq_id.changelog-v4.xml" />
 </databaseChangeLog>

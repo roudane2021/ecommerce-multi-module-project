@@ -7,7 +7,7 @@ spring:
     name: microservice-produits
   cloud:
     config:
-      uri: http://localhost:8801
+      uri: ${CONFIG_SERVER_URL:http://localhost:8801}
   liquibase:
     enabled: true
 
