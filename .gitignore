@@ -22,7 +22,9 @@ microservice-produits/target/
 microservice-commandes/target/
 microservice-paiements/target/
 
-
+config-server/target/
+eureka-server/target/
+gateway-server/target/
 
 
 
