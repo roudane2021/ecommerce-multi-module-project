@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class PaiementEntity {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "produit_seq", sequenceName = "produit_seq_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produit_seq")
     private int id;
 
     @Column(unique = true)

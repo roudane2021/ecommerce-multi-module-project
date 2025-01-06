@@ -10,9 +10,11 @@ import ma.roudane.service.commande.mapper.ICommandeApplicationMapper;
 import ma.roudane.service.commande.models.CommandeApplication;
 import ma.roudane.service.commande.models.CriteriaApp;
 import ma.roudane.service.commande.models.OperatorApp;
+import ma.roudane.service.commande.models.PaiementApplication;
 import ma.roudane.service.config.ErrorKeys;
 import ma.roudane.service.config.ErrorMessages;
 import ma.roudane.service.exception.ExceptionApplication;
+import ma.roudane.service.kafka.IProducerKafka;
 import ma.roudane.service.proxy.MicroserviceProduitsProxy;
 import ma.roudane.service.proxy.dto.AutorisationCommandeProduisRequest;
 import ma.roudane.service.proxy.dto.AutorisationCommandeResponse;
@@ -45,15 +47,18 @@ public class CommandeServiceImpl implements ICommandeService {
     private final ICommandeApplicationMapper mapper;
     private final MicroserviceProduitsProxy produitsProxy;
     private final ProduitCommandeRequestMapper produitCommandeRequestMapper;
+    private final IProducerKafka producerKafka;
 
 
     public CommandeServiceImpl(final ICommandeRepository commandeRepository, final ILigneCommandeRepository ligneCommandeRepository, final ICommandeApplicationMapper mapper,
-                               final MicroserviceProduitsProxy produitsProxy, final ProduitCommandeRequestMapper produitCommandeRequestMapper) {
+                               final MicroserviceProduitsProxy produitsProxy, final ProduitCommandeRequestMapper produitCommandeRequestMapper,
+                               final IProducerKafka producerKafka) {
         this.commandeRepository = commandeRepository;
         this.ligneCommandeRepository = ligneCommandeRepository;
         this.mapper = mapper;
         this.produitsProxy = produitsProxy;
         this.produitCommandeRequestMapper = produitCommandeRequestMapper;
+        this.producerKafka = producerKafka;
     }
     @Override
     @Transactional
@@ -73,12 +78,15 @@ public class CommandeServiceImpl implements ICommandeService {
                 commandeEntity.setLigneCommandes(ligneCommandeEntities);
                 commandeEntity.setStatus(CommandeStatus.EN_ATTENTE);
                 commandeEntityAfterSaved = commandeRepository.save(commandeEntity);
+                PaiementApplication paiementApplication = PaiementApplication.builder()
+                                                                             .idCommande(commandeEntity.getId())
+                                                                             .montant(0)
+                                                                             .numeroCarte(155l)
+                                                                              .build();
+                producerKafka.envoyerPaiement(paiementApplication);
             }else {
                 throw  new ExceptionApplication(ErrorMessages.getMessage(ErrorKeys.ERREUR_AUTORISATION_NON_ACCEPTEE));
             }
-
-
-
 
         // Retourner l'entité Commande sous forme d'application
         return mapper.toApp(commandeEntityAfterSaved);

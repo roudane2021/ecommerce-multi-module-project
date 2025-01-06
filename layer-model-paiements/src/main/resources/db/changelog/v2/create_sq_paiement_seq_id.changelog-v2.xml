@@ -3,6 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="db/changelog/v1/db.changelog-v1.xml" />
-    <include file="db/changelog/v2/create_sq_paiement_seq_id.changelog-v2.xml" />
+    <changeSet id="6" author="roudane">
+        <comment>creation de la produit_seq_id</comment>
+        <sqlFile path="db/changelog/v2/create_sq_paiement_seq_id.sql" />
+    </changeSet>
 </databaseChangeLog>

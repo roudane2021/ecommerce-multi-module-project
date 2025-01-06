@@ -2,7 +2,7 @@ server:
   port: 8783
 # Configurations H2
 spring:
-  application.name: microservice-produits
+  application.name: microservice-paiements
   jpa:
     show-sql: true
   h2:

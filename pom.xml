@@ -29,6 +29,8 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <app.version.liquibase>4.4.3</app.version.liquibase>
         <app.version.springfox>3.0.0</app.version.springfox>
+        <app.version.kafka>2.8.11</app.version.kafka>
+        <app.version.jackson-databind>2.13.5</app.version.jackson-databind>
     </properties>
     <modules>
         <module>microservice-produits</module>
@@ -61,6 +63,17 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${app.version.kafka}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${app.version.jackson-databind}</version>
             </dependency>
             <!-- ===== Modules ===== -->
             <dependency>

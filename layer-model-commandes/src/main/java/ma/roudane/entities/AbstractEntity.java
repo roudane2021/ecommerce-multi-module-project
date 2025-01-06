@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
+@Data
 public abstract class AbstractEntity implements Serializable {
 
     @Id
